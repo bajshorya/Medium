@@ -9,6 +9,8 @@ export const blogRouter = new Hono<{
   };
 }>();
 blogRouter.use("/*", (c, next) => {
+  //extract the useriD
+  //pass it down to route handler
   next();
 });
 
@@ -17,18 +19,75 @@ blogRouter.post("/", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
-  
-  return c.text("Blog created");
+
+  const blog = await prisma.blog.create({
+    data: {
+      title: body.title,
+      content: body.content,
+      authorId: 1,
+    },
+  });
+  return c.json({
+    id: blog.id,
+  });
 });
 
-blogRouter.put("/", (c) => {
-  return c.text("Blog updated");
+blogRouter.put("/", async (c) => {
+  const body = await c.req.json();
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const blog = await prisma.blog.update({
+    where: {
+      id: body.id,
+    },
+    data: {
+      title: body.title,
+      content: body.content,
+    },
+  });
+  return c.json({
+    id: blog.id,
+  });
 });
 
-blogRouter.get("/", (c) => {
-  return c.text("Blog details");
+blogRouter.get("/", async (c) => {
+  const body = await c.req.json();
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+  try {
+    const blog = await prisma.blog.findFirst({
+      where: {
+        id: body.id,
+      },
+    });
+    return c.json({
+      id: blog,
+    });
+  } catch (error) {
+    c.status(411);
+    return c.json({
+      message: "Error While fetching the blog post ",
+    });
+  }
 });
 
-blogRouter.post("/bulk", (c) => {
-  return c.text("Blogs created in bulk");
+blogRouter.post("/bulk", async (c) => {
+  const body = await c.req.json();
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+  try {
+    const blogs = await prisma.blog.findMany();
+    return c.json({
+      blogs,
+    });
+  } catch (error) {
+    c.status(411);
+    return c.json({
+      message: "Unable To fetch Blogs",
+    });
+  }
 });
