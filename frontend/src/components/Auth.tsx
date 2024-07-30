@@ -1,6 +1,6 @@
 import { SignupInput } from "@shoryabaj/common-zod";
 import axios from "axios";
-import React, { ChangeEvent, useState } from "react";
+import  { ChangeEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../config";
 export const Auth = ({ type }: { type: "signup" | "signin" }) => {
