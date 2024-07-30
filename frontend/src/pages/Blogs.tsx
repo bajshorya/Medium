@@ -1,51 +1,29 @@
 import React from "react";
 import { BlogCard } from "../components/BlogCard";
+import { Appbar } from "../components/AppBar";
+import { useBlogs } from "../hooks";
 
 export const Blogs = () => {
+  const { loading, blogs } = useBlogs();
+  if (loading) {
+    return <div>loading...</div>;
+  }
   return (
     <>
-      <div className="flex justify-center">
-        <div className="max-w-xl">
-          <BlogCard
-            authorName={"Shorya"}
-            title={
-              "Why Futobl Club Barcelona is still the center of football ideologies !!! "
-            }
-            content={
-              "Why Futobl Club Barcelona is still the center of football ideologies, this article mainly comprises of stuff because of which fcb is still the central and the most important entity of footballing world "
-            }
-            publishedDate={"29 July 2024"}
-          />
-          <BlogCard
-            authorName={"Shorya"}
-            title={
-              "Why Futobl Club Barcelona is still the center of football ideologies !!! "
-            }
-            content={
-              "Why Futobl Club Barcelona is still the center of football ideologies, this article mainly comprises of stuff because of which fcb is still the central and the most important entity of footballing world "
-            }
-            publishedDate={"29 July 2024"}
-          />
-          <BlogCard
-            authorName={"Shorya"}
-            title={
-              "Why Futobl Club Barcelona is still the center of football ideologies !!! "
-            }
-            content={
-              "Why Futobl Club Barcelona is still the center of football ideologies, this article mainly comprises of stuff because of which fcb is still the central and the most important entity of footballing world "
-            }
-            publishedDate={"29 July 2024"}
-          />
-          <BlogCard
-            authorName={"Shorya"}
-            title={
-              "Why Futobl Club Barcelona is still the center of football ideologies !!! "
-            }
-            content={
-              "Why Futobl Club Barcelona is still the center of football ideologies, this article mainly comprises of stuff because of which fcb is still the central and the most important entity of footballing world "
-            }
-            publishedDate={"29 July 2024"}
-          />
+      <div>
+        <Appbar />
+        <div className="flex justify-center">
+          <div>
+            {blogs.map((blog) => (
+              <BlogCard
+                id={blog.id}
+                authorName={blog.author.name || "Anonymous"}
+                title={blog.title}
+                content={blog.content}
+                publishedDate={"29 July 2024"}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </>
