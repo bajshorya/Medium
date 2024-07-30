@@ -2,8 +2,7 @@ name = "mediumproject"
 compatibility_date = "2024-07-26"
 
 [vars]
-DATABASE_URL = "prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiN2ZmOTQzYWEtYzY5MS00YmM4LWEyNzktNGVlNzE5M2U0Y2Q3IiwidGVuYW50X2lkIjoiOTZlZDdhOWQ3MjZlZjczOTEwNWQ1MDlkNjNiOWE5YjcxODBkNjc5MGQ1MzgxODgzOTlmNjliZWE5ZWVjZjA4MSIsImludGVybmFsX3NlY3JldCI6ImFiMzE5Zjk4LTQyODEtNGQ4OC05ZWE4LTQxMWFjYzc3NjU4YiJ9.U1cQ9uffqGvB2_cSQjG2lIoBYepvt9Dh5RwAiUTqOOY"
-JWT_SECRET="shoryaSecretAtMedium"
+DATABASE_URL = ""
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
